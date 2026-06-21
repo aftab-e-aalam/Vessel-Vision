@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html class="scroll-smooth dark" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Vessel Vision | Precision Medical Diagnostics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+              "on-primary": "#ffffff","on-error": "#ffffff","inverse-surface": "#ffffff","error": "#ff0055","surface-variant": "#1c1c1c","on-primary-fixed-variant": "#cc00cc","deep-charcoal": "#0a0a0a","surface-tint": "#ff00ff","surface-container-highest": "#262626","technical-sage": "#81A18B","secondary": "#ff00ff","on-secondary-fixed": "#000000","surface-dim": "#121212","tertiary-fixed": "#c9ebd2","outline": "#333333","surface-container-high": "#1a1a1a","on-tertiary-fixed-variant": "#304d3b","secondary-container": "#330033","on-tertiary-container": "#cbedd4","outline-variant": "#2a2a2a","tertiary-container": "#1a1a1a","on-primary-container": "#ffffff","surface": "#000000","calm-teal": "#ff00ff","on-surface": "#ffffff","on-background": "#ffffff","primary": "#ff00ff","secondary-fixed": "#ff00ff","on-primary-fixed": "#000000","surface-container": "#0f0f0f","on-surface-variant": "#a1a1a1","on-secondary": "#ffffff","tertiary": "#375442","on-tertiary-fixed": "#032112","surgical-white": "#FFFFFF","on-tertiary": "#ffffff","inverse-primary": "#ffb7ff","on-error-container": "#ffdad6","primary-container": "#440044","on-secondary-container": "#ff00ff","surface-container-low": "#080808","tertiary-fixed-dim": "#adceb7","inverse-on-surface": "#000000","vitality-blue": "#ff00ff","primary-fixed-dim": "#ffb7ff","primary-fixed": "#ffddff","on-secondary-fixed-variant": "#660066","surface-bright": "#1c1c1c","secondary-fixed-dim": "#ff5aff","error-container": "#440011","background": "#000000","surface-container-lowest": "#000000"
+            },
+            "borderRadius": {"DEFAULT": "0.25rem","lg": "0.5rem","xl": "0.75rem","full": "9999px"},
+            "spacing": {"base": "8px","container-max": "1280px","margin-desktop": "64px","margin-mobile": "20px","gutter": "24px"},
+            "fontFamily": {"headline-md": ["Plus Jakarta Sans"],"body-md": ["Inter"],"headline-lg": ["Plus Jakarta Sans"],"body-sm": ["Inter"],"label-md": ["Inter"],"display": ["Plus Jakarta Sans"],"headline-lg-mobile": ["Plus Jakarta Sans"],"body-lg": ["Inter"]},
+            "fontSize": {"headline-md": ["20px", {"lineHeight": "1.3","letterSpacing": "-0.01em","fontWeight": "600"}],"body-md": ["16px", {"lineHeight": "1.5","letterSpacing": "0","fontWeight": "400"}],"headline-lg": ["32px", {"lineHeight": "1.2","letterSpacing": "-0.02em","fontWeight": "600"}],"body-sm": ["14px", {"lineHeight": "1.5","letterSpacing": "0","fontWeight": "400"}],"label-md": ["12px", {"lineHeight": "1.2","letterSpacing": "0.05em","fontWeight": "600"}],"display": ["48px", {"lineHeight": "1.1","letterSpacing": "-0.04em","fontWeight": "700"}],"headline-lg-mobile": ["24px", {"lineHeight": "1.2","letterSpacing": "-0.02em","fontWeight": "600"}],"body-lg": ["18px", {"lineHeight": "1.6","letterSpacing": "0","fontWeight": "400"}]}
+          },
+        },
+      }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="font-body-md text-body-md overflow-x-hidden dark bg-black text-white relative">
+
+    <!-- WebGL Background -->
+    <div class="fixed inset-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
+      <canvas id="shader-canvas" style="display:block;width:100%;height:100%"></canvas>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full flex justify-between items-center px-5 md:px-16 h-16 bg-black/60 backdrop-blur-xl border-b border-white/10 shadow-sm z-50">
+      <div class="flex items-center gap-4">
+        <img
+          src="vvlogo.png"
+          alt="Vessel Vision Logo"
+          class="h-10 w-auto cursor-pointer"
+          onclick="showPage('home')"
+        />
+        
+        <span class="text-headline-md font-bold tracking-tight text-white cursor-pointer" onclick="showPage('home')">
+          Vessel Vision
+        </span>
+      </div>
+      <nav class="hidden md:flex gap-8">
+        <a id="nav-home" class="text-label-md font-label-md nav-active transition-colors cursor-pointer" onclick="showPage('home')">Home</a>
+        <a id="nav-products" class="text-label-md font-label-md nav-inactive transition-colors cursor-pointer" onclick="showPage('contact')">Contact</a>
+        <a id="nav-dashboard" class="text-label-md font-label-md nav-inactive transition-colors cursor-pointer" onclick="showPage('blog')">Blog</a>
+        <a id="nav-about" class="text-label-md font-label-md nav-inactive transition-colors cursor-pointer" onclick="showPage('about')">About</a>
+      </nav>
+      <button
+          class="inline-flex items-center gap-2 px-6 py-2 rounded-lg font-semibold text-white bg-fuchsia-800 hover:bg-fuchsia-500 transition-all duration-300 hover:scale-105 shadow-lg shadow-fuchsia-600/30"
+          onclick="showPage('contact')"
+        >
+          <span class="material-symbols-outlined text-lg">
+            calendar_month
+          </span>
+          Book Demo
+      </button>
+    </header>
+
+    <!-- ===== HOME PAGE ===== -->
+    <div id="page-home" class="page active">
+      <main class="pt-16 pb-24 md:pb-16 relative">
+
+        <!-- Hero -->
+        <section class="relative min-h-[560px] flex flex-col items-center justify-center text-center px-5 md:px-16 bg-transparent pt-8 pb-12">
+          <div class="z-10 max-w-4xl">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 animate-pulse border border-primary/20">
+              <span class="w-2 h-2 rounded-full bg-primary"></span>
+              <span class="text-label-md font-label-md tracking-widest uppercase text-primary/80">Healthcare AI &amp; Deep-Tech</span>
+            </div>
+            <h1 class="font-display text-display mb-6 leading-none text-white">
+              Precision <span class="text-primary">Diagnosis</span><br>for Every Patient.
+            </h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10">
+              Vessel Vision is building AI-first tools for accessible, accurate, and fast medical diagnosis — starting with BoneScan X.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <button class="px-8 py-4 bg-primary text-black rounded-lg font-headline-md hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-primary/20" style="background-color:rgb(209,0,209);color:#fff;">Early Access</button>
+              <button class="px-8 py-4 glass text-white rounded-lg font-headline-md hover:bg-white/5 transition-all border border-white/10">Request Demo</button>
+            </div>
+          </div>
+
+          <div class="mt-20 w-full max-w-5xl glass rounded-2xl p-2 overflow-hidden shadow-2xl relative border border-primary/10">
+            <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-50 z-10"></div>
+            <video
+              id="hero-bone-video"
+              class="w-full rounded-xl object-cover aspect-[21/9] grayscale-[0.2] contrast-[1.1]"
+              src="bonecrack.mp4"
+              muted
+              playsinline
+              webkit-playsinline="true"
+              preload="auto"
+            ></video>
+          </div>
+        </section>
+
+      <!-- Stats Grid -->
+      <section class="py-28 px-5 md:px-16 max-w-container-max mx-auto bg-transparent overflow-hidden">
+        <div class="max-w-5xl mx-auto overflow-hidden">
+          <div class="marquee-track flex gap-gutter w-max">
+
+            <!-- Set 1 (real content) -->
+            <div class="flex gap-gutter shrink-0">
+              <div class="stats-card flex flex-col items-center text-center p-8 glass rounded-2xl group hover:border-primary/40 transition-colors border border-white/20 flex-shrink-0 w-[240px]">
+                <span class="material-symbols-outlined text-primary text-3xl mb-4">public</span>
+                <h3 class="font-display text-display leading-none mb-2 text-white">12</h3>
+                <p class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Global Hubs</p>
+              </div>
+              <div class="stats-card flex flex-col items-center text-center p-8 glass rounded-2xl group hover:border-primary/40 transition-colors border border-white/20 flex-shrink-0 w-[240px]">
+                <span class="material-symbols-outlined text-primary text-3xl mb-4">analytics</span>
+                <h3 class="font-display text-display leading-none mb-2 text-white">150k+</h3>
+                <p class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Scans Analyzed</p>
+              </div>
+              <div class="stats-card flex flex-col items-center text-center p-8 glass rounded-2xl group hover:border-primary/40 transition-colors border border-white/20 flex-shrink-0 w-[240px]">
+                <span class="material-symbols-outlined text-primary text-3xl mb-4">verified</span>
+                <h3 class="font-display text-display leading-none mb-2 text-white">99.2%</h3>
+                <p class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Model Accuracy</p>
+              </div>
+              <div class="stats-card flex flex-col items-center text-center p-8 glass rounded-2xl group hover:border-primary/40 transition-colors border border-white/20 flex-shrink-0 w-[240px]">
+                <span class="material-symbols-outlined text-primary text-3xl mb-4">schedule</span>
+                <h3 class="font-display text-display leading-none mb-2 text-white">&lt;5s</h3>
+                <p class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Diagnosis Time</p>
+              </div>
+            </div>
+
+            <!-- Set 2 (exact duplicate, hidden from screen readers — creates the seamless loop) -->
+            <div class="flex gap-gutter shrink-0" aria-hidden="true">
+              <div class="stats-card flex flex-col items-center text-center p-8 glass rounded-2xl group hover:border-primary/40 transition-colors border border-white/20 flex-shrink-0 w-[240px]">
+                <span class="material-symbols-outlined text-primary text-3xl mb-4">public</span>
+                <h3 class="font-display text-display leading-none mb-2 text-white">12</h3>
+                <p class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Global Hubs</p>
+              </div>
+              <div class="stats-card flex flex-col items-center text-center p-8 glass rounded-2xl group hover:border-primary/40 transition-colors border border-white/20 flex-shrink-0 w-[240px]">
+                <span class="material-symbols-outlined text-primary text-3xl mb-4">analytics</span>
+                <h3 class="font-display text-display leading-none mb-2 text-white">150k+</h3>
+                <p class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Scans Analyzed</p>
+              </div>
+              <div class="stats-card flex flex-col items-center text-center p-8 glass rounded-2xl group hover:border-primary/40 transition-colors border border-white/20 flex-shrink-0 w-[240px]">
+                <span class="material-symbols-outlined text-primary text-3xl mb-4">verified</span>
+                <h3 class="font-display text-display leading-none mb-2 text-white">99.2%</h3>
+                <p class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Model Accuracy</p>
+              </div>
+              <div class="stats-card flex flex-col items-center text-center p-8 glass rounded-2xl group hover:border-primary/40 transition-colors border border-white/20 flex-shrink-0 w-[240px]">
+                <span class="material-symbols-outlined text-primary text-3xl mb-4">schedule</span>
+                <h3 class="font-display text-display leading-none mb-2 text-white">&lt;5s</h3>
+                <p class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Diagnosis Time</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+        <style>
+      .marquee-track {
+        animation: marquee-scroll 40s linear infinite;
+        will-change: transform;
+      }
+      .marquee-track:hover {
+        animation-play-state: paused; /* optional: pause when user hovers to read */
+      }
+
+      @keyframes marquee-scroll {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
+      }
+      </style>
+
+
+      <!-- ═══════════════════════════════════════════════
+          LIVE DEMO — viewport-fit on desktop
+      ════════════════════════════════════════════════ -->
+      <section id="live-demo-section" class="px-5 md:px-16 max-w-container-max mx-auto bg-transparent" style="padding-top:28px;padding-bottom:28px;">
+        <div class="max-w-5xl mx-auto">
+
+          <!-- Section header — tight -->
+          <div id="live-demo-header" class="flex flex-col md:flex-row md:items-end md:justify-between gap-2 mb-5">
+            <div>
+              <h2 class="font-headline-lg text-headline-lg text-white leading-tight">See BoneScan X In <span class="text-primary">Action</span></h2>
+              <p class="text-on-surface-variant text-sm mt-1 max-w-xlg">Select a sample case or upload an X-ray to test real-time AI fracture detection.</p>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              <span class="text-label-md font-label-md tracking-widest uppercase text-primary/60">Live Demo</span>
+            </div>
+          </div>
+
+          <!-- Demo grid -->
+          <div id="live-demo-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-5 h-auto lg:[height:calc(100dvh-64px-56px-70px)] lg:min-h-[460px] lg:max-h-[640px]">
+
+            <!-- Control panel -->
+            <div id="demo-control-panel" class="lg:col-span-4 flex flex-col gap-0 h-auto lg:h-full">
+              <div class="p-5 glass rounded-2xl h-auto lg:h-full flex flex-col border border-white/5 overflow-y-auto" style="scrollbar-width:none;">
+                <p class="text-label-md font-label-md uppercase mb-3 text-primary/60 text-xs tracking-widest">Control Panel</p>
+
+                <div class="space-y-2">
+                  <button class="w-full text-left p-3 rounded-lg glass border-primary/40 bg-primary/5 flex justify-between items-center">
+                    <span class="font-semibold text-sm text-white">Distal Radius Fracture</span>
+                    <span class="material-symbols-outlined text-primary text-base">check_circle</span>
+                  </button>
+                  <button class="w-full text-left p-3 rounded-lg glass border border-white/10 hover:bg-white/5 transition-all">
+                    <span class="font-semibold text-sm text-white/80">Clavicle Fracture</span>
+                  </button>
+                  <button class="w-full text-left p-3 rounded-lg glass border border-white/10 hover:bg-white/5 transition-all">
+                    <span class="font-semibold text-sm text-white/80">Normal Hand Study</span>
+                  </button>
+                </div>
+
+                <!-- Write Your Problem -->
+                <div class="mt-4">
+                  <p class="text-label-md font-label-md uppercase mb-2 text-primary/60 text-xs tracking-widest">Describe Problem</p>
+                  <textarea class="problem-textarea" rows="2" placeholder="e.g. wrist pain after a fall…"></textarea>
+                  <label class="upload-dropzone mt-2" id="problem-upload-label">
+                    <span class="material-symbols-outlined text-primary text-xl" id="upload-icon">upload_file</span>
+                    <img class="upload-thumb hidden" id="upload-thumb" alt="Uploaded preview">
+                    <span class="flex flex-col">
+                      <span class="text-xs text-white/80 font-medium" id="upload-text">Upload an X-ray image</span>
+                      <span class="text-[10px] text-on-surface-variant">JPG, PNG or DICOM</span>
+                    </span>
+                    <input type="file" accept="image/*" class="hidden" id="problem-upload-input" onchange="handleProblemUpload(this)">
+                  </label>
+                </div>
+
+                <div class="mt-auto pt-4 border-t border-white/5">
+                  <button class="w-full py-3 bg-primary text-black rounded-lg font-bold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity" style="background-color:rgb(209,0,209);color:#fff;">
+                    <span class="material-symbols-outlined text-base">play_arrow</span>
+                    Run Inference
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Scan / output panel -->
+            <div id="demo-scan-panel" class="lg:col-span-8 glass rounded-2xl p-2 relative overflow-hidden group border border-primary/20 h-[420px] sm:h-[480px] lg:h-full">
+              <div class="absolute top-4 left-4 z-20 flex gap-3">
+                <div class="px-3 py-1.5 rounded-lg bg-black/80 backdrop-blur-md border border-primary/30 text-[10px] font-bold tracking-widest flex items-center gap-2 text-primary">
+                  <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> SYSTEM ACTIVE
+                </div>
+                <div class="px-3 py-1.5 rounded-lg bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-bold tracking-widest text-on-surface-variant">MODEL: YOLOv8-MEDICAL</div>
+              </div>
+
+              <img class="w-full h-full object-cover rounded-xl opacity-50 grayscale contrast-125" style="object-position:center;" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDx-K2-jZz7S5X_zOifO1q2kx3cxWIPIF-qVNB3K-C2cWwejs6tQvQvpoyBMP_ppzZdGr5OEDN9c2vJyeBP8ZHMZD2DQOPmR6ZIPtVH9vnp0TZbZ2RqUMUIqrQwFuE6lVlbCWoU3gWwW8ZyCHj-FMZU1OAsH41xf68_m6ia2cSSyrqH5W_3XT7i54BB55srk9TlzMt-DFTNrGqeivN-_cp0vnxJsbK4Nrd3UCrjqg2ahqTc21fgRbd_LYIcmT9VEJSJYtBPYZ9Ridc" alt="X-ray scan">
+
+              <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div class="w-40 h-40 border-2 border-dashed border-primary rounded-lg relative shadow-[0_0_20px_rgba(255,0,255,0.3)]">
+                  <div class="absolute -top-7 left-0 bg-primary text-black text-[10px] px-2 py-1 rounded font-bold whitespace-nowrap">FRACTURE DETECTED (94.2%)</div>
+                  <div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-primary"></div>
+                  <div class="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-primary"></div>
+                  <div class="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-primary"></div>
+                  <div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-primary"></div>
+                </div>
+              </div>
+
+              <!-- Diagnostic output bar — tighter -->
+              <div class="absolute bottom-4 left-6 right-3 p-6 glass rounded-xl backdrop-blur-2xl border border-white/20 bg-black">
+                <div class="flex justify-between items-end">
+                  <div>
+                    <p class="text-[10px] text-on-surface-variant mb-0.5 uppercase tracking-widest">Diagnostic Output</p>
+                    <p class="font-semibold text-white text-sm leading-snug">Incomplete fracture of the distal radial metaphysis noted.</p>
+                  </div>
+                  <div class="text-right shrink-0 ml-4">
+                    <p class="text-[10px] text-on-surface-variant mb-0.5 uppercase tracking-widest">Inference</p>
+                    <p class="font-bold text-primary text-base">0.12s</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /demo grid -->
+        </div>
+      </section>
+
+        <section class="py-24 px-5 md:px-16 max-w-container-max mx-auto bg-transparent" id="how-it-works">
+          <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+              <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6 border border-primary/20">
+                <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                <span class="text-label-md tracking-widest uppercase text-primary/80">Workflow</span>
+              </div>
+              <h2 class="font-headline-lg text-headline-lg text-white mb-4">How BoneScan X <span class="text-primary">Works</span></h2>
+              <p class="text-on-surface-variant max-w-xl mx-auto text-sm leading-relaxed">
+                From X-ray upload to actionable clinical insight — our AI pipeline delivers results in under 5 seconds.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+              <!-- STEP 1: Upload -->
+              <div class="hiw-step hiw-card rounded-2xl border border-primary/20 overflow-hidden flex flex-col" data-step="1" style="background:rgba(5,5,8,.95);">
+                <div class="relative h-52 overflow-hidden flex items-center justify-center" style="background:radial-gradient(ellipse at 50% 0%,rgba(255,0,255,.08) 0%,transparent 70%);">
+                  <div style="animation:fileRise 4s ease-in-out infinite; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">
+                    <div style="width:56px;height:68px;border-radius:8px;background:rgba(255,0,255,.12);border:1.5px solid rgba(255,0,255,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-shadow:0 0 20px rgba(255,0,255,.2);">
+                      <span class="material-symbols-outlined text-primary" style="font-size:28px;font-variation-settings:'FILL' 1,'wght' 300,'GRAD' 0,'opsz' 24;">x_ray</span>
+                      <span style="font-size:7px;font-weight:700;letter-spacing:.08em;color:rgba(255,0,255,.7);">DICOM</span>
+                    </div>
+                  </div>
+                  <div style="position:absolute;inset:16px;border:1.5px dashed rgba(255,0,255,.2);border-radius:14px;pointer-events:none;"></div>
+                  <div style="position:absolute;top:22px;left:50%;transform:translateX(-50%);">
+                    <span class="material-symbols-outlined text-primary/30" style="font-size:20px;">arrow_upward</span>
+                  </div>
+                  <div style="position:absolute;bottom:36px;left:24px;right:24px;">
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                      <span style="font-size:9px;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.4);">UPLOADING</span>
+                      <span style="font-size:9px;font-weight:700;color:rgba(255,0,255,.8);animation:confVal 4s infinite;">100%</span>
+                    </div>
+                    <div style="height:3px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden;">
+                      <div style="height:100%;border-radius:99px;background:linear-gradient(90deg,#ff00ff,#cc00cc);animation:progFill 4s ease-in-out infinite;"></div>
+                    </div>
+                  </div>
+                  <div style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);white-space:nowrap;animation:uploadBadge 4s ease-in-out infinite;">
+                    <span style="display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:99px;background:rgba(255,0,255,.15);border:1px solid rgba(255,0,255,.4);font-size:9px;font-weight:700;letter-spacing:.08em;color:#ff00ff;">
+                      <span class="material-symbols-outlined" style="font-size:12px;font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+                      X-RAY IMPORTED
+                    </span>
+                  </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col gap-3 border-t border-primary/20" style="background:linear-gradient(180deg,rgba(255,0,255,.06) 0%,rgba(255,0,255,.03) 100%)">
+                  <div class="flex items-center gap-3">
+                    <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:rgba(255,0,255,.12);border:1px solid rgba(255,0,255,.3);font-size:10px;font-weight:800;color:#ff00ff;flex-shrink:0;">01</span>
+                    <h3 class="text-white font-semibold text-base">Upload Your X-Ray</h3>
+                  </div>
+                  <p class="text-on-surface-variant text-xs leading-relaxed">Drag and drop a DICOM, JPG, or PNG X-ray into BoneScan X — from any device, anywhere, even offline.</p>
+                  <div class="mt-auto inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-full text-[10px] font-bold tracking-wider text-primary/70 border border-primary/20 bg-primary/5">
+                    <span class="material-symbols-outlined text-[12px]">check_small</span> DICOM / JPG / PNG
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 2: AI Inference -->
+              <div class="hiw-step hiw-card rounded-2xl border border-primary/20 overflow-hidden flex flex-col" data-step="2" style="background:rgba(5,5,8,.95);animation-delay:.8s;">
+                <div class="relative h-52 overflow-hidden p-4" style="background:rgba(0,0,0,.55); font-family:'Courier New',monospace;">
+                  <div style="display:flex;align-items:center;gap:5px;margin-bottom:10px;">
+                    <span style="width:8px;height:8px;border-radius:50%;background:#ff5f57;"></span>
+                    <span style="width:8px;height:8px;border-radius:50%;background:#febc2e;"></span>
+                    <span style="width:8px;height:8px;border-radius:50%;background:#28c840;"></span>
+                    <span style="font-size:9px;color:rgba(255,255,255,.3);margin-left:8px;letter-spacing:.06em;">bonescan_x — model</span>
+                  </div>
+                  <div style="animation:tl1 5s ease-in-out infinite;opacity:0;font-size:10px;color:#a78bfa;margin-bottom:5px;">&gt; <span style="color:#ff00ff;">model</span> = YOLOv8<span style="color:#fff;">(</span><span style="color:#34d399;">'medical'</span><span style="color:#fff;">)</span></div>
+                  <div style="animation:tl2 5s ease-in-out infinite;opacity:0;font-size:10px;color:#a78bfa;margin-bottom:5px;">&gt; scan.<span style="color:#ff00ff;">load</span><span style="color:#fff;">(</span><span style="color:#34d399;">"scan_001.dcm"</span><span style="color:#fff;">)</span></div>
+                  <div style="animation:tl3 5s ease-in-out infinite;opacity:0;font-size:10px;margin-bottom:5px;display:flex;align-items:center;gap:6px;">
+                    <svg width="10" height="10" viewBox="0 0 10 10" style="animation:spinnerRot 1s linear infinite;flex-shrink:0;"><circle cx="5" cy="5" r="4" fill="none" stroke="rgba(255,0,255,.3)" stroke-width="1.5"/><path d="M5 1 A4 4 0 0 1 9 5" fill="none" stroke="#ff00ff" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    <span style="color:#ff00ff;font-size:10px;">Running inference<span style="animation:dotPulse 1s ease infinite;">…</span></span>
+                  </div>
+                  <div style="animation:tl4 5s ease-in-out infinite;opacity:0;font-size:10px;color:#a78bfa;margin-bottom:5px;">&gt; fracture: <span style="color:#ff00ff;font-weight:700;">True</span></div>
+                  <div style="animation:tl5 5s ease-in-out infinite;opacity:0;font-size:10px;color:#a78bfa;margin-bottom:8px;">&gt; confidence: <span style="color:#34d399;font-weight:700;">0.942</span></div>
+                  <div style="position:absolute;bottom:14px;left:14px;right:14px;">
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                      <span style="font-size:8px;letter-spacing:.07em;color:rgba(255,255,255,.35);">CONFIDENCE SCORE</span>
+                      <span style="font-size:8px;font-weight:700;color:#34d399;animation:confVal 5s infinite;">94.2%</span>
+                    </div>
+                    <div style="height:3px;border-radius:99px;background:rgba(255,255,255,.06);">
+                      <div style="height:100%;border-radius:99px;background:linear-gradient(90deg,#ff00ff,#34d399);animation:confBar 5s ease-in-out infinite;"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col gap-3 border-t border-primary/20" style="background:linear-gradient(180deg,rgba(255,0,255,.06) 0%,rgba(255,0,255,.03) 100%)">
+                  <div class="flex items-center gap-3">
+                    <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:rgba(255,0,255,.12);border:1px solid rgba(255,0,255,.3);font-size:10px;font-weight:800;color:#ff00ff;flex-shrink:0;">02</span>
+                    <h3 class="text-white font-semibold text-base">AI Runs Inference</h3>
+                  </div>
+                  <p class="text-on-surface-variant text-xs leading-relaxed">YOLOv8-Medical scans the image for fracture patterns, stress lines, and bone anomalies — returning a confidence score in milliseconds.</p>
+                  <div class="mt-auto inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-full text-[10px] font-bold tracking-wider text-primary/70 border border-primary/20 bg-primary/5">
+                    <span class="material-symbols-outlined text-[12px]">check_small</span> YOLOv8-MEDICAL
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 3: Detect & Localize -->
+              <div class="hiw-step hiw-card rounded-2xl border border-primary/20 overflow-hidden flex flex-col" data-step="3" style="background:rgba(5,5,8,.95);animation-delay:1.6s;">
+                <div class="relative h-52 overflow-hidden flex items-center justify-center" style="background:#050508;">
+                  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 52% 48%,rgba(200,210,220,.13) 0%,rgba(120,140,160,.06) 40%,transparent 75%);"></div>
+                  <div style="position:absolute;top:28%;left:32%;width:38%;height:50%;border-radius:40% 60% 55% 45%/40% 45% 55% 60%;background:rgba(180,195,210,.07);filter:blur(2px);"></div>
+                  <div style="position:absolute;top:30%;left:36%;width:28%;height:40%;border-radius:30% 70% 60% 40%/50% 40% 60% 50%;background:rgba(200,215,225,.09);filter:blur(1.5px);"></div>
+                  <div style="position:absolute;top:26%;left:30%;width:42%;height:52%;border-radius:50%;background:radial-gradient(ellipse,rgba(255,0,100,.5) 0%,rgba(255,80,0,.35) 40%,transparent 75%);filter:blur(8px);animation:heatPop 5s ease-in-out infinite;"></div>
+                  <div style="position:absolute;left:10%;right:10%;height:1.5px;background:linear-gradient(90deg,transparent,rgba(255,0,255,.7),transparent);animation:scanBeam 3s linear infinite;box-shadow:0 0 8px rgba(255,0,255,.5);"></div>
+                  <svg viewBox="0 0 260 200" style="position:absolute;inset:0;width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="72" y="42" width="116" height="118" fill="none" stroke="#ff00ff" stroke-width="1.8" stroke-dasharray="520" stroke-linecap="round" style="animation:bboxDraw 5s ease-in-out infinite;"/>
+                    <polyline points="72,62 72,42 92,42" fill="none" stroke="#ff00ff" stroke-width="3" stroke-linecap="round" style="animation:bboxDraw 5s ease-in-out infinite;"/>
+                    <polyline points="168,42 188,42 188,62" fill="none" stroke="#ff00ff" stroke-width="3" stroke-linecap="round" style="animation:bboxDraw 5s ease-in-out infinite;"/>
+                    <polyline points="72,140 72,160 92,160" fill="none" stroke="#ff00ff" stroke-width="3" stroke-linecap="round" style="animation:bboxDraw 5s ease-in-out infinite;"/>
+                    <polyline points="168,160 188,160 188,140" fill="none" stroke="#ff00ff" stroke-width="3" stroke-linecap="round" style="animation:bboxDraw 5s ease-in-out infinite;"/>
+                  </svg>
+                  <div style="position:absolute;top:22px;left:72px;animation:detTag 5s ease-in-out infinite;">
+                    <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:5px;background:#ff00ff;color:#000;font-size:8px;font-weight:800;letter-spacing:.07em;white-space:nowrap;">FRACTURE DETECTED · 94.2%</span>
+                  </div>
+                  <div style="position:absolute;bottom:10px;right:12px;">
+                    <span style="font-size:8px;font-weight:700;letter-spacing:.06em;color:rgba(255,100,100,.6);">GRAD-CAM</span>
+                  </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col gap-3 border-t border-primary/20" style="background:linear-gradient(180deg,rgba(255,0,255,.06) 0%,rgba(255,0,255,.03) 100%)">
+                  <div class="flex items-center gap-3">
+                    <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:rgba(255,0,255,.12);border:1px solid rgba(255,0,255,.3);font-size:10px;font-weight:800;color:#ff00ff;flex-shrink:0;">03</span>
+                    <h3 class="text-white font-semibold text-base">Detect &amp; Localize</h3>
+                  </div>
+                  <p class="text-on-surface-variant text-xs leading-relaxed">Fractures are pinpointed with bounding boxes and Grad-CAM heatmaps, showing exactly where and how severe the injury is.</p>
+                  <div class="mt-auto inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-full text-[10px] font-bold tracking-wider text-primary/70 border border-primary/20 bg-primary/5">
+                    <span class="material-symbols-outlined text-[12px]">check_small</span> Grad-CAM + BBox
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 4: Generate Report -->
+              <div class="hiw-step hiw-card rounded-2xl border border-primary/20 overflow-hidden flex flex-col" data-step="4" style="background:rgba(5,5,8,.95);animation-delay:2.4s;">
+                <div class="relative h-52 overflow-hidden flex items-start justify-center pt-4 px-6" style="background:rgba(0,0,0,.4);">
+                  <div style="width:100%;max-width:240px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:12px 14px;position:relative;">
+                    <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.07);">
+                      <span class="material-symbols-outlined text-primary" style="font-size:15px;font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">description</span>
+                      <span style="font-size:9px;font-weight:700;letter-spacing:.07em;color:rgba(255,255,255,.6);">DIAGNOSTIC REPORT</span>
+                      <span style="margin-left:auto;font-size:8px;color:rgba(255,0,255,.6);font-weight:700;">v1.0</span>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:7px;">
+                      <div style="display:flex;align-items:center;gap:6px;"><span style="color:#34d399;font-size:11px;animation:ck1 5.5s ease-in-out infinite;display:inline-block;transform-origin:center;">✓</span><div style="height:6px;border-radius:3px;background:rgba(255,255,255,.15);animation:rl1 5.5s ease-in-out infinite;"></div></div>
+                      <div style="display:flex;align-items:center;gap:6px;"><span style="color:#34d399;font-size:11px;animation:ck2 5.5s ease-in-out infinite;display:inline-block;transform-origin:center;">✓</span><div style="height:6px;border-radius:3px;background:rgba(255,255,255,.15);animation:rl2 5.5s ease-in-out infinite;"></div></div>
+                      <div style="display:flex;align-items:center;gap:6px;"><span style="color:#34d399;font-size:11px;animation:ck3 5.5s ease-in-out infinite;display:inline-block;transform-origin:center;">✓</span><div style="height:6px;border-radius:3px;background:rgba(255,255,255,.15);animation:rl3 5.5s ease-in-out infinite;"></div></div>
+                      <div style="display:flex;align-items:center;gap:6px;"><span style="color:#34d399;font-size:11px;animation:ck4 5.5s ease-in-out infinite;display:inline-block;transform-origin:center;">✓</span><div style="height:6px;border-radius:3px;background:rgba(255,255,255,.15);animation:rl4 5.5s ease-in-out infinite;"></div></div>
+                    </div>
+                    <div style="margin-top:10px;animation:repReady 5.5s ease-in-out infinite;opacity:0;">
+                      <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 10px;border-radius:7px;background:rgba(255,0,255,.12);border:1px solid rgba(255,0,255,.3);">
+                        <span style="font-size:8px;font-weight:800;letter-spacing:.08em;color:#ff00ff;">EXPORT READY</span>
+                        <div style="display:flex;gap:5px;">
+                          <span style="font-size:7px;font-weight:700;padding:2px 5px;border-radius:3px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">PDF</span>
+                          <span style="font-size:7px;font-weight:700;padding:2px 5px;border-radius:3px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);">PACS</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col gap-3 border-t border-primary/20" style="background:linear-gradient(180deg,rgba(255,0,255,.06) 0%,rgba(255,0,255,.03) 100%)">
+                  <div class="flex items-center gap-3">
+                    <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:rgba(255,0,255,.12);border:1px solid rgba(255,0,255,.3);font-size:10px;font-weight:800;color:#ff00ff;flex-shrink:0;">04</span>
+                    <h3 class="text-white font-semibold text-base">Generate Report</h3>
+                  </div>
+                  <p class="text-on-surface-variant text-xs leading-relaxed">A structured clinical report is auto-generated with findings, confidence scores, and PACS-ready annotations in PDF format.</p>
+                  <div class="mt-auto inline-flex items-center gap-1.5 self-start px-3 py-1 rounded-full text-[10px] font-bold tracking-wider text-primary/70 border border-primary/20 bg-primary/5">
+                    <span class="material-symbols-outlined text-[12px]">check_small</span> PDF / PACS Export
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Stats bar -->
+            <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="flex flex-col items-center gap-1 p-5 rounded-xl border border-white/5 bg-white/[0.02] text-center">
+                <span class="material-symbols-outlined text-primary text-lg">bolt</span>
+                <span class="text-white font-bold text-lg" style="font-family:'Plus Jakarta Sans';">&lt; 5s</span>
+                <span class="text-on-surface-variant text-[11px] uppercase tracking-widest">Total Pipeline</span>
+              </div>
+              <div class="flex flex-col items-center gap-1 p-5 rounded-xl border border-white/5 bg-white/[0.02] text-center">
+                <span class="material-symbols-outlined text-primary text-lg">verified</span>
+                <span class="text-white font-bold text-lg" style="font-family:'Plus Jakarta Sans';">95%+</span>
+                <span class="text-on-surface-variant text-[11px] uppercase tracking-widest">Detection Accuracy</span>
+              </div>
+              <div class="flex flex-col items-center gap-1 p-5 rounded-xl border border-white/5 bg-white/[0.02] text-center">
+                <span class="material-symbols-outlined text-primary text-lg">wifi_off</span>
+                <span class="text-white font-bold text-lg" style="font-family:'Plus Jakarta Sans';">Offline</span>
+                <span class="text-on-surface-variant text-[11px] uppercase tracking-widest">Edge-Ready</span>
+              </div>
+              <div class="flex flex-col items-center gap-1 p-5 rounded-xl border border-white/5 bg-white/[0.02] text-center">
+                <span class="material-symbols-outlined text-primary text-lg">lock</span>
+                <span class="text-white font-bold text-lg" style="font-family:'Plus Jakarta Sans';">HIPAA</span>
+                <span class="text-on-surface-variant text-[11px] uppercase tracking-widest">Compliant</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Solutions -->
+        <section class="py-32 px-5 md:px-16 max-w-container-max mx-auto bg-transparent">
+          <div class="max-w-5xl mx-auto">
+            <div class="mb-16">
+              <h2 class="font-headline-lg text-headline-lg mb-4 text-white">Products &amp; Solutions Portfolio</h2>
+              <p class="text-on-surface-variant max-w-2xl">Building diagnostics for hospitals, remote outreach centers, and avionics aerospace installations.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div class="glass p-10 rounded-2xl group hover:bg-white/[0.05] transition-all flex flex-col border border-white/30">
+                <div class="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform border border-primary/20">
+                  <span class="material-symbols-outlined text-primary text-3xl">memory</span>
+                </div>
+                <h3 class="font-headline-md text-white mb-4">X-Ray AI Retrofit System</h3>
+                <p class="text-on-surface-variant mb-8 flex-grow">Upgrade traditional analog X-ray tables to modern digital setups with offline edge hardware, bypassing expensive machine replacements.</p>
+                <a class="text-primary font-bold flex items-center gap-2 group/link" href="#">View Stack <span class="material-symbols-outlined transition-transform group-hover/link:translate-x-1">arrow_right_alt</span></a>
+              </div>
+              <div class="glass p-10 rounded-2xl group hover:bg-white/[0.05] transition-all flex flex-col border border-white/30">
+                <div class="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform border border-primary/20">
+                  <span class="material-symbols-outlined text-primary text-3xl">developer_board</span>
+                </div>
+                <h3 class="font-headline-md text-white mb-4">BoneScan X Software</h3>
+                <p class="text-on-surface-variant mb-8 flex-grow">Explainable clinical AI software for real-time fracture detection and diagnostic assistance inside radiology departments.</p>
+                <a class="text-primary font-bold flex items-center gap-2 group/link" href="#">Technical Specs <span class="material-symbols-outlined transition-transform group-hover/link:translate-x-1">arrow_right_alt</span></a>
+              </div>
+              <div class="glass p-10 rounded-2xl group hover:bg-white/[0.05] transition-all flex flex-col border border-white/30">
+                <div class="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform border border-primary/20">
+                  <span class="material-symbols-outlined text-primary text-3xl">cell_tower</span>
+                </div>
+                <h3 class="font-headline-md text-white mb-4">Remote Screening Tools</h3>
+                <p class="text-on-surface-variant mb-8 flex-grow">Deep learning solutions for mobile oral cancer and cervical screening designed for remote outreach and rural healthcare centers.</p>
+                <a class="text-primary font-bold flex items-center gap-2 group/link" href="#">Global Impact <span class="material-symbols-outlined transition-transform group-hover/link:translate-x-1">arrow_right_alt</span></a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="py-32 px-5 md:px-16 bg-transparent">
+          <div class="max-w-4xl mx-auto glass p-12 md:p-20 rounded-2xl text-center relative overflow-hidden border border-primary/30">
+            <div class="absolute inset-0 bg-primary/5 pointer-events-none"></div>
+            <h2 class="font-display text-display mb-6 relative z-10 text-white">Upgrade Your Clinical Workflow Today.</h2>
+            <p class="text-on-surface-variant text-body-lg mb-10 max-w-xl mx-auto relative z-10">Get access to the BoneScan X dashboard, upload DICOM/X-ray scans, and generate automated reports in seconds.</p>
+            <div class="flex justify-center relative z-10">
+              <button class="px-10 py-5 bg-primary text-black rounded-lg font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,0,255,0.4)]" style="background-color:rgb(209,0,209);color:#fff;">Create Portal Account</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- ===== ABOUT PAGE ===== -->
+    <div id="page-about" class="page">
+    <main class="pt-16 pb-24 md:pb-16 relative">
+
+      <section class="relative min-h-[520px] flex flex-col items-center justify-center text-center px-5 md:px-16 bg-transparent pt-16 pb-24">
+        <div class="z-10 max-w-4xl">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 border border-primary/20">
+            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+            <span class="text-label-md font-label-md tracking-widest uppercase text-primary/80">Our Story</span>
+          </div>
+          <h1 class="font-display text-display mb-6 leading-none text-white">Transforming Medical<br><span class="text-primary">Diagnosis with AI</span></h1>
+          <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Vessel Vision builds AI-powered tools like BoneScan X to support faster, more accurate, and accessible medical diagnosis — especially in underserved regions.</p>
+        </div>
+      </section>
+
+      <section class="py-40 px-5 md:px-16 max-w-container-max mx-auto">
+        <div class="max-w-5xl mx-auto">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <p class="text-label-md font-label-md uppercase tracking-widest text-primary/70 mb-4">Who We Are</p>
+              <h2 class="font-headline-lg text-headline-lg text-white mb-6">A Team of Healthcare &amp; AI Innovators</h2>
+              <p class="text-on-surface-variant text-body-lg leading-relaxed mb-6">We are on a mission to improve diagnostic access globally. Our flagship tool, BoneScan X, helps detect fractures from X-rays using explainable AI — with or without a radiologist present.</p>
+              <p class="text-on-surface-variant leading-relaxed">Every feature we build is grounded in real clinical feedback — designed to complement, not replace, the expertise of medical professionals.</p>
+              <div class="mt-10 flex flex-col gap-3">
+                <div class="flex items-center gap-3"><div class="timeline-dot"></div><span class="text-white/80 text-sm">Founded with a mission to democratize AI diagnostics</span></div>
+                <div style="width:1px;height:20px;background:rgba(255,0,255,0.2);margin-left:5px;"></div>
+                <div class="flex items-center gap-3"><div class="timeline-dot"></div><span class="text-white/80 text-sm">Launched BoneScan X — AI fracture detection in under 5 seconds</span></div>
+                <div style="width:1px;height:20px;background:rgba(255,0,255,0.2);margin-left:5px;"></div>
+                <div class="flex items-center gap-3"><div class="timeline-dot"></div><span class="text-white/80 text-sm">Expanding to remote screening and rural outreach programs</span></div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div class="about-stat-card"><div class="text-4xl font-bold text-primary mb-2" style="font-family:'Plus Jakarta Sans';">150+</div><p class="text-white font-semibold text-sm mb-1">X-rays Analyzed</p><p class="text-on-surface-variant text-xs leading-relaxed">Used in demos and testing across clinics, hackathons, and case studies.</p></div>
+              <div class="about-stat-card"><div class="text-4xl font-bold text-primary mb-2" style="font-family:'Plus Jakarta Sans';">&lt;5s</div><p class="text-white font-semibold text-sm mb-1">Instant Results</p><p class="text-on-surface-variant text-xs leading-relaxed">Fracture predictions delivered in under 5 seconds — saving time where it matters.</p></div>
+              <div class="about-stat-card sm:col-span-2"><div class="text-4xl font-bold text-primary mb-2" style="font-family:'Plus Jakarta Sans';">95%</div><p class="text-white font-semibold text-sm mb-1">Model Accuracy</p><p class="text-on-surface-variant text-xs leading-relaxed">AI model tested to achieve over 95% accuracy using Grad-CAM validation in test conditions.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 px-5 md:px-16 max-w-container-max mx-auto">
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center mb-16">
+            <p class="text-label-md font-label-md uppercase tracking-widest text-primary/70 mb-4">Our Values</p>
+            <h2 class="font-headline-lg text-headline-lg text-white mb-4">The Values That Drive <span class="text-primary">Vessel Vision</span></h2>
+            <p class="text-on-surface-variant max-w-xl mx-auto">From clinical impact to innovation, our values guide us in building AI that supports medical diagnosis and expands healthcare access.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="about-value-card flex gap-5"><div class="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary">science</span></div><div><h3 class="text-white font-semibold mb-2">Pioneering Medical Innovation</h3><p class="text-on-surface-variant text-sm leading-relaxed">We use state-of-the-art AI models to enhance diagnostic accuracy, speed, and explainability in healthcare.</p></div></div>
+            <div class="about-value-card flex gap-5"><div class="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary">shield_check</span></div><div><h3 class="text-white font-semibold mb-2">Committed to Ethical AI &amp; Trust</h3><p class="text-on-surface-variant text-sm leading-relaxed">Every prediction includes explainability, empowering clinicians to understand and trust AI recommendations.</p></div></div>
+            <div class="about-value-card flex gap-5"><div class="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary">travel_explore</span></div><div><h3 class="text-white font-semibold mb-2">Empowering Clinical Access</h3><p class="text-on-surface-variant text-sm leading-relaxed">We aim to make diagnostic support accessible across rural clinics, hospitals, and underserved communities worldwide.</p></div></div>
+            <div class="about-value-card flex gap-5"><div class="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-primary">stethoscope</span></div><div><h3 class="text-white font-semibold mb-2">Built for Doctors, Not Just Data</h3><p class="text-on-surface-variant text-sm leading-relaxed">Our tools are designed with doctors and patients in mind — to support clinical decision-making, not replace it.</p></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 px-5 md:px-16 max-w-container-max mx-auto">
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center mb-16">
+            <p class="text-label-md font-label-md uppercase tracking-widest text-primary/70 mb-4">Why Us</p>
+            <h2 class="font-headline-lg text-headline-lg text-white mb-4">Why Clinics and Hospitals <span class="text-primary">Choose Us</span></h2>
+            <p class="text-on-surface-variant max-w-xl mx-auto">We bring explainable, fast, and scalable medical AI that fits right into existing clinical workflows.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="compare-col-traditional">
+              <div class="flex items-center gap-3 mb-6"><div class="w-8 h-8 rounded-full bg-red-400 flex items-center justify-center"><span class="material-symbols-outlined text-white text-sm">close</span></div><h3 class="text-white/60 font-semibold text-lg">Traditional Diagnosis</h3></div>
+              <div class="compare-item"><span class="material-symbols-outlined text-red-400 text-base">cancel</span><span class="text-white/50">May Miss Subtle Fractures</span></div>
+              <div class="compare-item"><span class="material-symbols-outlined text-red-400 text-base">cancel</span><span class="text-white/50">Dependent on Radiologist Availability</span></div>
+              <div class="compare-item"><span class="material-symbols-outlined text-red-400 text-base">cancel</span><span class="text-white/50">High Reporting Load</span></div>
+              <div class="compare-item"><span class="material-symbols-outlined text-red-400 text-base">cancel</span><span class="text-white/50">Time-Intensive Manual Review</span></div>
+              <div class="compare-item"><span class="material-symbols-outlined text-red-400 text-base">cancel</span><span class="text-white/50">Lack of AI Integration</span></div>
+              <div class="compare-item"><span class="material-symbols-outlined text-red-400 text-base">cancel</span><span class="text-white/50">Diagnostic Variability</span></div>
+            </div>
+            <div class="compare-col-bonescan">
+              <div class="flex items-center gap-3 mb-6"><div class="w-8 h-8 rounded-full bg-green-300 flex items-center justify-center"><span class="material-symbols-outlined text-red-500 text-sm">check</span></div><h3 class="text-white font-semibold text-lg">BoneScan X by Vessel Vision</h3></div>
+              <div class="compare-item"><span class="material-symbols-outlined text-green-400 text-base">check_circle</span><span class="text-white/90">Explainable AI-Powered Results</span></div>
+              <div class="compare-item"><span class="material-symbols-outlined text-green-400 text-base">check_circle</span><span class="text-white/90">Available Anytime, Anywhere</span></div>
+              <div class="compare-item"><span class="material-symbols-outlined text-green-400 text-base">check_circle</span><span class="text-white/90">Works Across Clinics and Camps</span></div>
+              <div class="compare-item"><span class="material-symbols-outlined text-green-400 text-base">check_circle</span><span class="text-white/90">&lt;5s Fracture Detection</span></div>
+              <div class="compare-item"><span class="material-symbols-outlined text-green-400 text-base">check_circle</span><span class="text-white/90">PACS &amp; EHR Integration Ready</span></div>
+              <div class="compare-item"><span class="material-symbols-outlined text-green-400 text-base">check_circle</span><span class="text-white/90">Clinically Validated &amp; Reliable</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 px-5 md:px-16 max-w-container-max mx-auto">
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center mb-16">
+            <p class="text-label-md font-label-md uppercase tracking-widest text-primary/70 mb-4">Our Team</p>
+            <h2 class="font-headline-lg text-headline-lg text-white mb-4">Meet the Minds Behind <span class="text-primary">Vessel Vision</span></h2>
+            <p class="text-on-surface-variant max-w-xl mx-auto">We bring together technology and strategy to create smarter automation solutions for the future of healthcare.</p>
+          </div>
+          <div class="flex justify-center">
+            <div class="glass rounded-2xl p-10 border border-white/20 max-w-sm w-full text-center hover:border-primary/40 transition-colors group">
+              <div class="w-24 h-24 rounded-full border-2 border-primary/30 overflow-hidden mx-auto mb-6 group-hover:scale-105 transition-transform">
+                <img
+                  src="brij.png"
+                  alt="Brij Nandan Dogra"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <h3 class="text-white font-bold text-xl mb-1">Brij Nandan Dogra</h3>
+              <p class="text-primary text-sm font-semibold mb-3 uppercase tracking-wider">CEO</p>
+              <p class="text-on-surface-variant text-sm mb-6">Vessel Vision Private Limited</p>
+              <a href="https://www.linkedin.com/in/brij-nandan-dogra-3270ba321" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 glass rounded-lg border border-white/10 text-sm text-white/80 hover:text-primary hover:border-primary/30 transition-all">
+                <span class="material-symbols-outlined text-base">open_in_new</span>LinkedIn Profile
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 px-5 md:px-16 max-w-container-max mx-auto">
+        <div class="max-w-3xl mx-auto">
+          <div class="text-center mb-16">
+            <p class="text-label-md font-label-md uppercase tracking-widest text-primary/70 mb-4">FAQs</p>
+            <h2 class="font-headline-lg text-headline-lg text-white mb-4">Got Questions About <span class="text-primary">Medical AI?</span></h2>
+            <p class="text-on-surface-variant">Here's everything you need to know about using BoneScan X in your clinic or hospital.</p>
+          </div>
+          <div id="faq-container">
+            <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span>How can BoneScan X help my clinic or hospital?</span><span class="material-symbols-outlined faq-icon">add</span></button><div class="faq-answer">BoneScan X provides AI-assisted fracture detection from X-rays in under 5 seconds. It reduces diagnostic workload, catches subtle fractures that may be missed under pressure, and generates structured reports — helping clinicians make faster, more confident decisions.</div></div>
+            <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span>Is BoneScan X hard to set up?</span><span class="material-symbols-outlined faq-icon">add</span></button><div class="faq-answer">Not at all. BoneScan X is designed for plug-and-play deployment. It integrates with existing PACS and EHR systems and can run on edge hardware for offline environments — no major infrastructure overhaul needed.</div></div>
+            <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span>Who can use BoneScan X?</span><span class="material-symbols-outlined faq-icon">add</span></button><div class="faq-answer">BoneScan X is built for radiologists, orthopedic surgeons, emergency physicians, and general practitioners. It's also suited for remote camps and rural health centers where specialist access is limited.</div></div>
+            <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span>Do I need technical skills to use BoneScan X?</span><span class="material-symbols-outlined faq-icon">add</span></button><div class="faq-answer">No. The interface is designed for clinical professionals, not engineers. Simply upload a DICOM or standard X-ray image and receive AI-generated results with Grad-CAM visual explanations instantly.</div></div>
+            <div class="faq-item"><button class="faq-btn" onclick="toggleFaq(this)"><span>What kind of support do you offer?</span><span class="material-symbols-outlined faq-icon">add</span></button><div class="faq-answer">We offer onboarding support, technical documentation, and a dedicated contact line for enterprise clients. For smaller clinics, we provide self-serve setup guides and responsive email support.</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 px-5 md:px-16 bg-transparent">
+        <div class="max-w-4xl mx-auto glass p-12 md:p-20 rounded-2xl text-center relative overflow-hidden border border-primary/30">
+          <div class="absolute inset-0 bg-primary/5 pointer-events-none"></div>
+          <h2 class="font-display text-display mb-6 relative z-10 text-white">Let BoneScan X Assist You.</h2>
+          <p class="text-on-surface-variant text-body-lg mb-10 max-w-xl mx-auto relative z-10">Schedule a free demo and see how AI can support fracture detection in your clinic — fast, reliable, and explainable.</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+            <button class="px-10 py-5 bg-primary text-black rounded-lg font-bold hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,0,255,0.4)]" style="background-color:rgb(209,0,209);color:#fff;">Book a Free Demo Call</button>
+            <button class="px-10 py-5 glass text-white rounded-lg font-bold hover:bg-white/5 transition-all border border-white/10">Try BoneScan X</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+    </div>
+
+    <!-- Mobile Bottom Nav -->
+    <nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center pt-2 pb-safe px-4 bg-black/80 backdrop-blur-xl border-t border-primary/20 shadow-lg z-50">
+      <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary cursor-pointer" id="mobile-nav-home" onclick="showPage('home')"><span class="material-symbols-outlined">home</span><span class="text-label-md font-label-md">Home</span></a>
+      <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary cursor-pointer" onclick="showPage('home')"><span class="material-symbols-outlined">biotech</span><span class="text-label-md font-label-md">Products</span></a>
+      <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary cursor-pointer" onclick="showPage('home')"><span class="material-symbols-outlined">dashboard</span><span class="text-label-md font-label-md">Dashboard</span></a>
+      <a class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary cursor-pointer" id="mobile-nav-about" onclick="showPage('about')"><span class="material-symbols-outlined">info</span><span class="text-label-md font-label-md">About</span></a>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="bg-black/60 backdrop-blur-lg py-20 px-5 md:px-16 border-t border-white/5">
+      <div class="w-full">
+        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
+          <div class="col-span-1 md:col-span-4">
+            <h4 class="text-headline-md mb-4 text-primary font-bold">Vessel Vision</h4>
+            <p class="text-on-surface-variant max-w-sm mb-8">Advancing clinical diagnostics through accessible, affordable, and accurate AI-powered computer vision algorithms.</p>
+            <div class="flex gap-4">
+              <a class="w-10 h-10 rounded-lg glass flex items-center justify-center hover:text-primary transition-colors border border-white/10" href="#"><span class="material-symbols-outlined text-sm">mail</span></a>
+              <a class="w-10 h-10 rounded-lg glass flex items-center justify-center hover:text-primary transition-colors border border-white/10" href="#"><span class="material-symbols-outlined text-sm">public</span></a>
+            </div>
+          </div>
+          <div class="col-span-1 md:col-span-3 md:col-start-6">
+            <h5 class="font-bold mb-6 text-white">Solutions</h5>
+            <ul class="space-y-4 text-on-surface-variant">
+              <li><a class="hover:text-primary transition-colors" href="#">BoneScan X Software</a></li>
+              <li><a class="hover:text-primary transition-colors" href="#">X-Ray Retrofit Kit</a></li>
+              <li><a class="hover:text-primary transition-colors" href="#">Screening Modules</a></li>
+              <li><a class="hover:text-primary transition-colors" href="#">API Docs</a></li>
+            </ul>
+          </div>
+          <div class="col-span-1 md:col-span-3">
+            <h5 class="font-bold mb-6 text-white">Company</h5>
+            <ul class="space-y-4 text-on-surface-variant">
+              <li><a class="hover:text-primary transition-colors cursor-pointer" onclick="showPage('about')">About Us</a></li>
+              <li><a class="hover:text-primary transition-colors" href="#">Research Papers</a></li>
+              <li><a class="hover:text-primary transition-colors" href="#">Clinician Portal</a></li>
+              <li><a class="hover:text-primary transition-colors" href="#">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="max-w-5xl mx-auto mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-label-md text-on-surface-variant/60">
+        <p>© 2024 Vessel Vision Private Limited. All rights reserved.</p>
+        <div class="flex gap-8">
+          <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+          <a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+          <a class="hover:text-primary transition-colors" href="#">Security</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

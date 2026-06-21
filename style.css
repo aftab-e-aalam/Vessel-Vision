@@ -1,0 +1,138 @@
+body { background-color: #000000; color: #ffffff; min-height: max(884px, 100dvh); }
+      .glass { background: rgba(255,0,255,0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,0,255,0.1); }
+      .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+
+      /* Page transitions */
+      .page { display: none; opacity: 0; transform: translateY(16px); transition: opacity 0.4s ease, transform 0.4s ease; }
+      .page.active { display: block; }
+      .page.visible { opacity: 1; transform: translateY(0); }
+
+      /* About page specific */
+      .about-stat-card { background: rgba(255,0,255,0.04); border: 1px solid rgb(248 248 248 / 26%); border-radius: 16px; padding: 28px; text-align: center; }
+      .about-value-card { background: rgba(255,255,255,0.02); border: 1px solid rgb(248 248 248 / 26%); border-radius: 16px; padding: 28px; transition: border-color 0.3s; }
+      .about-value-card:hover { border-color: rgba(255,0,255,0.3); }
+      .compare-col-traditional { border: 1px solid rgb(248 248 248 / 26%); border-radius: 16px; padding: 28px; background: rgba(255,255,255,0.02); }
+      .compare-col-bonescan { border: 1px solid rgba(255,0,255,0.3); border-radius: 16px; padding: 28px; background: rgba(255,0,255,0.04); }
+      .compare-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
+      .compare-item:last-child { border-bottom: none; }
+      .faq-item { border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
+      .faq-btn { width: 100%; text-align: left; padding: 20px 24px; background: rgba(255,255,255,0.02); display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: 15px; font-weight: 500; color: #fff; transition: background 0.2s; }
+      .faq-btn:hover { background: rgba(255,0,255,0.05); }
+      .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; padding: 0 24px; color: #a1a1a1; font-size: 14px; line-height: 1.7; }
+      .faq-answer.open { max-height: 200px; padding: 0 24px 20px; }
+      .faq-icon { transition: transform 0.3s; font-size: 20px; color: #ff00ff; }
+      .faq-icon.open { transform: rotate(45deg); }
+      .timeline-dot { width: 12px; height: 12px; border-radius: 50%; background: #ff00ff; flex-shrink: 0; box-shadow: 0 0 12px rgba(255,0,255,0.6); }
+      .nav-active { color: #ff00ff; font-weight: 600; }
+      .nav-inactive { color: #a1a1a1; }
+      .nav-inactive:hover { color: #fff; }
+
+      /* How It Works step animations */
+      .hiw-step { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
+      .hiw-step.in-view { opacity: 1; transform: translateY(0); }
+      .hiw-step[data-step="2"] { transition-delay: 0.12s; }
+      .hiw-step[data-step="3"] { transition-delay: 0.24s; }
+      .hiw-step[data-step="4"] { transition-delay: 0.36s; }
+
+      /* Problem input + upload */
+      .problem-textarea { width: 100%; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 10px 12px; color: #fff; font-size: 12px; font-family: 'Inter', sans-serif; resize: none; transition: border-color 0.2s, background 0.2s; }
+      .problem-textarea::placeholder { color: #6b6b6b; }
+      .problem-textarea:focus { outline: none; border-color: rgba(255,0,255,0.5); background: rgba(255,0,255,0.03); }
+      .upload-dropzone { border: 1px dashed rgba(255,0,255,0.3); border-radius: 10px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: border-color 0.2s, background 0.2s; background: rgba(255,255,255,0.015); }
+      .upload-dropzone:hover { border-color: rgba(255,0,255,0.6); background: rgba(255,0,255,0.04); }
+      .upload-thumb { width: 32px; height: 32px; border-radius: 6px; object-fit: cover; border: 1px solid rgba(255,0,255,0.3); flex-shrink: 0; }
+
+      /* ── Live Demo: viewport-fit layout ── */
+      /* The demo section is designed to fit within 100dvh on desktop (1080p+).
+        Header = 64px. Section vertical padding trimmed to 28px top/bottom.
+        Header block mb trimmed. Control panel and scan panel heights constrained. */
+      @media (min-width: 1024px) {
+        #live-demo-section {
+          padding-top: 28px;
+          padding-bottom: 28px;
+        }
+        #live-demo-header {
+          margin-bottom: 20px;
+        }
+        #live-demo-header h2 {
+          margin-bottom: 4px;
+        }
+        #live-demo-grid {
+          /* let children define height naturally but cap it */
+          max-height: calc(100dvh - 64px - 56px - 64px); /* viewport - header bar - section pads - demo header */
+        }
+        #demo-control-panel {
+          overflow-y: auto;
+          scrollbar-width: none;
+        }
+        #demo-scan-panel {
+          min-height: 0;
+        }
+      }
+      
+@keyframes fileRise {
+            0%,10%   { transform: translateY(28px) scale(0.85); opacity:0; }
+            35%,65%  { transform: translateY(0)    scale(1);    opacity:1; }
+            85%,100% { transform: translateY(-24px) scale(0.85); opacity:0; }
+          }
+          @keyframes progFill {
+            0%,15%  { width:0%; }
+            70%,80% { width:100%; }
+            90%,100%{ width:0%; }
+          }
+          @keyframes uploadBadge {
+            0%,72%  { opacity:0; transform:scale(0.8) translateY(6px); }
+            84%,92% { opacity:1; transform:scale(1)   translateY(0); }
+            98%,100%{ opacity:0; }
+          }
+          @keyframes dotPulse {
+            0%,100%{ transform:scale(1);   opacity:1; }
+            50%    { transform:scale(1.6); opacity:.5; }
+          }
+          @keyframes tl1 { 0%,8%{opacity:0;transform:translateX(-6px)} 18%,88%{opacity:1;transform:translateX(0)} 96%,100%{opacity:0} }
+          @keyframes tl2 { 0%,18%{opacity:0;transform:translateX(-6px)} 28%,88%{opacity:1;transform:translateX(0)} 96%,100%{opacity:0} }
+          @keyframes tl3 { 0%,28%{opacity:0;transform:translateX(-6px)} 38%,88%{opacity:1;transform:translateX(0)} 96%,100%{opacity:0} }
+          @keyframes tl4 { 0%,38%{opacity:0;transform:translateX(-6px)} 48%,88%{opacity:1;transform:translateX(0)} 96%,100%{opacity:0} }
+          @keyframes tl5 { 0%,48%{opacity:0;transform:translateX(-6px)} 58%,88%{opacity:1;transform:translateX(0)} 96%,100%{opacity:0} }
+          @keyframes confBar { 0%,40%{width:0%} 70%,85%{width:94%} 96%,100%{width:0%} }
+          @keyframes confVal { 0%,40%{opacity:0} 60%,85%{opacity:1} 96%,100%{opacity:0} }
+          @keyframes spinnerRot { to { transform:rotate(360deg); } }
+          @keyframes scanBeam {
+            0%    { top:4%;  opacity:0; }
+            8%    { opacity:1; }
+            80%   { top:88%; opacity:1; }
+            90%,100%{ top:88%; opacity:0; }
+          }
+          @keyframes bboxDraw {
+            0%,20%  { stroke-dashoffset:520; opacity:0; }
+            55%,80% { stroke-dashoffset:0;   opacity:1; }
+            92%,100%{ stroke-dashoffset:0;   opacity:0; }
+          }
+          @keyframes heatPop {
+            0%,30%  { opacity:0; }
+            60%,80% { opacity:.55; }
+            92%,100%{ opacity:0; }
+          }
+          @keyframes detTag {
+            0%,52%  { opacity:0; transform:translateY(-5px) scale(.9); }
+            65%,82% { opacity:1; transform:translateY(0)    scale(1); }
+            92%,100%{ opacity:0; }
+          }
+          @keyframes rl1 { 0%,8%{width:0;opacity:0} 22%,88%{width:82%;opacity:1} 97%,100%{opacity:0} }
+          @keyframes rl2 { 0%,18%{width:0;opacity:0} 32%,88%{width:60%;opacity:1} 97%,100%{opacity:0} }
+          @keyframes rl3 { 0%,28%{width:0;opacity:0} 42%,88%{width:88%;opacity:1} 97%,100%{opacity:0} }
+          @keyframes rl4 { 0%,38%{width:0;opacity:0} 52%,88%{width:50%;opacity:1} 97%,100%{opacity:0} }
+          @keyframes ck1 { 0%,20%{opacity:0;transform:scale(0)} 26%,88%{opacity:1;transform:scale(1)} 97%,100%{opacity:0} }
+          @keyframes ck2 { 0%,30%{opacity:0;transform:scale(0)} 36%,88%{opacity:1;transform:scale(1)} 97%,100%{opacity:0} }
+          @keyframes ck3 { 0%,40%{opacity:0;transform:scale(0)} 46%,88%{opacity:1;transform:scale(1)} 97%,100%{opacity:0} }
+          @keyframes ck4 { 0%,50%{opacity:0;transform:scale(0)} 56%,88%{opacity:1;transform:scale(1)} 97%,100%{opacity:0} }
+          @keyframes repReady { 0%,65%{opacity:0;transform:translateY(8px)} 78%,90%{opacity:1;transform:translateY(0)} 97%,100%{opacity:0} }
+          @keyframes borderGlow {
+            0%,100%{ box-shadow:0 0 0 0 rgba(255,0,255,.15); }
+            50%    { box-shadow:0 0 24px 4px rgba(255,0,255,.18); }
+          }
+          .hiw-card {
+            transition: border-color .3s, transform .3s;
+            animation: borderGlow 4s ease-in-out infinite;
+          }
+          .hiw-card:hover { border-color:rgba(255,0,255,.55) !important; transform:translateY(-5px); }
