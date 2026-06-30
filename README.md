@@ -147,7 +147,7 @@ git push origin feature-name
 ## 👨‍💻 Contributors
 
 * Aftab Aalam
-* Mahi Patel
+* Mahi Priyadarshi
 
 ---
 
