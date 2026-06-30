@@ -89,23 +89,7 @@ Vessel-Vision/
 
 ---
 
-## 🚀 Getting Started
 
-Clone the repository
-
-```bash
-git clone https://github.com/aftab-e-aalam/Vessel-Vision.git
-```
-
-Open the project
-
-```bash
-cd Vessel-Vision
-```
-
-Run using VS Code Live Server or simply open `index.html` in your browser.
-
----
 
 ## 🎯 Project Goals
 
@@ -128,7 +112,7 @@ Contributions are welcome.
 ## 👨‍💻 Contributors
 
 * Aftab Aalam
-* Mahi Patel
+* Mahi Priyadarshi
 
 ---
 
@@ -141,5 +125,5 @@ It helps the project reach more developers and motivates future improvements.
 ---
 
 <p align="center">
-Made with ❤️ for better healthcare through AI.
+Made with ❤️ by Team AFTAB and MAHI
 </p>
