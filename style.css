@@ -146,22 +146,38 @@ body {
           }
           .hiw-card:hover { border-color:rgba(255,0,255,.55) !important; transform:translateY(-5px); }
 
-/* The initial hidden state of elements */
-.scroll-animate {
+/* Base state for all elements we want to watch */
+.observe-me {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 2.0s cubic-bezier(0.25, 1, 0.5, 1), transform 2.0s cubic-bezier(0.25, 1, 0.5, 1);
   will-change: transform, opacity;
+  transition: all 0.8s cubic-bezier(0.17, 0.55, 0.55, 1); /* Smooth easing */
 }
 
-/* The state triggered when the element enters the viewport */
-.scroll-animate.in-view {
+/* Specific starting positions before they become visible */
+.animate-fade-up {
+  transform: translateY(50px);
+}
+
+.animate-slide-left {
+  transform: translateX(-50px);
+}
+
+.animate-slide-right {
+  transform: translateX(50px);
+}
+
+.animate-scale-up {
+  transform: scale(0.9);
+}
+
+/* The active state triggered by our JavaScript */
+.observe-me.show {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(0) scale(1);
 }
 
-/* Optional: Add a slight delay for grid items so they animate in sequence */
-.delay-100 { transition-delay: 150ms; }
-.delay-200 { transition-delay: 300ms; }
-.delay-300 { transition-delay: 450ms; }
-.delay-400 { transition-delay: 600ms; }
+/* Staggered delays so groups of items don't appear all at once */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }

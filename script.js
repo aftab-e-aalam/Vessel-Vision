@@ -134,3 +134,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const home = document.getElementById('page-home');
   requestAnimationFrame(() => requestAnimationFrame(() => home.classList.add('visible')));
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Set up the observer
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                // Add the 'show' class when it enters the screen
+                entry.target.classList.add('show');
+            } else {
+                // Remove the class when it leaves so it animates again when scrolling back up
+                entry.target.classList.remove('show');
+            }
+        });
+    }, {
+        threshold: 0.1, // Trigger when 10% of the element is visible
+        rootMargin: "0px 0px -50px 0px" // Trigger slightly before the bottom of the screen
+    });
+
+    // 2. Grab all elements with the 'observe-me' class
+    const animatedElements = document.querySelectorAll('.observe-me');
+
+    // 3. Tell the observer to watch each one
+    animatedElements.forEach((el) => {
+        observer.observe(el);
+    });
+});
